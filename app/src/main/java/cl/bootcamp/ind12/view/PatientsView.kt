@@ -1,6 +1,5 @@
 package cl.bootcamp.ind12.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,48 +32,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import cl.bootcamp.ind12.modal.StatePATIENT
 import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
-@Preview
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientsView(viewModel: PatientsViewModel = viewModel()) {
+fun PatientsView(navController: NavController, viewModel: PatientsViewModel = viewModel()) {
     var showDialog by remember { mutableStateOf(false) }
     var patientName by remember { mutableStateOf("") }
 
-    // Usar un Box para permitir la alineación del FAB
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Blue,
-                    titleContentColor = Color.White
+                    containerColor = Color.Blue, titleContentColor = Color.White
                 ),
                 title = { Text("Lista de Pacientes") },
-                )
+            )
 
-            // Lista de pacientes
+
             LazyColumn {
                 items(viewModel.patients) { patient ->
-                    PatientCard(patient)
+                    PatientCard(patient, navController)
                 }
             }
 
-            // Diálogo para agregar nuevo paciente
             if (showDialog) {
-                AlertDialog(
-                    onDismissRequest = { showDialog = false },
+                AlertDialog(onDismissRequest = { showDialog = false },
                     title = { Text("Agregar Paciente") },
                     text = {
-                        TextField(
-                            value = patientName,
+                        TextField(value = patientName,
                             onValueChange = { patientName = it },
-                            label = { Text("Nombre del Paciente") }
-                        )
+                            label = { Text("Nombre del Paciente") })
                     },
                     confirmButton = {
                         TextButton(onClick = {
@@ -91,8 +84,7 @@ fun PatientsView(viewModel: PatientsViewModel = viewModel()) {
                         TextButton(onClick = { showDialog = false }) {
                             Text("Cancelar")
                         }
-                    }
-                )
+                    })
             }
         }
 
@@ -108,20 +100,19 @@ fun PatientsView(viewModel: PatientsViewModel = viewModel()) {
 }
 
 @Composable
-fun PatientCard(patient: StatePATIENT) {
-    Card(modifier = Modifier
-        .padding(8.dp)
-        .fillMaxWidth()) {
+fun PatientCard(patient: StatePATIENT, navController: NavController) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Nombre : ${patient.name}")
             Spacer(modifier = Modifier.height(8.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
             ) {
-                Button(onClick = {
-                    // Aquí puedes manejar el cálculo de IMC
-                }) {
+                Button(onClick = { navController.navigate("imc")  }) {
                     Text("Calcular IMC")
                 }
             }

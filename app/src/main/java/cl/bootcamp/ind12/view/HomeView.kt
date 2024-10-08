@@ -15,9 +15,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import cl.bootcamp.ind12.components.CustomButton
 import cl.bootcamp.ind12.components.CustomOutlinedTextField
 import cl.bootcamp.ind12.components.CustomSpacer
@@ -25,9 +25,8 @@ import cl.bootcamp.ind12.components.CustomText
 import cl.bootcamp.ind12.components.SegmentedButtonSingleSelect
 import cl.bootcamp.ind12.viewmodal.IMCViewModel
 
-@Preview
 @Composable
-fun HomeView() {
+fun HomeView(navController: NavController) {
     val viewModelD: IMCViewModel = viewModel()
     Column(
         modifier = Modifier
@@ -89,5 +88,17 @@ fun HomeView() {
         CustomSpacer()
 
         CustomText(String.format("%.1f", viewModelD.state.value.imcResult))
+
+        CustomSpacer()
+
+        CustomButton(
+            text = "Guardar", modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 10.dp
+                )
+        ) {
+            navController.navigate("home")
+        }
     }
 }
