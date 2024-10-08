@@ -45,7 +45,7 @@ fun HomeView() {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
                 title = { Text("¡CUIDADO!") },
-                text = { Text("No te olvides de llenar todos los campos con los datos solicitados.") },
+                text = { Text("No te olvides de llenar todos los campos con los datos solicitados. alex") },
                 confirmButton = {
                     TextButton(onClick =  { showDialog = false }) {
                         Text("Entendido")
