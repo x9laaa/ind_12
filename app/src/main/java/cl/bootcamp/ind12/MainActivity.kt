@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import cl.bootcamp.ind12.ui.theme.Ind12Theme
 import cl.bootcamp.ind12.view.HomeView
+import cl.bootcamp.ind12.view.PatientsView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Ind12Theme {
-                HomeView()
+                PatientsView()
             }
         }
     }
