@@ -21,9 +21,19 @@ class IMCViewModel : ViewModel() {
         state.value = state.value.copy(edad = edad)
     }
 
+    fun validateFields(): Boolean {
+        val pesoValue = state.value.peso.toFloatOrNull()
+        val altoValue = state.value.alto.toFloatOrNull()
+        val edadValue = state.value.edad.toIntOrNull()
+
+        return pesoValue != null && pesoValue > 0 &&
+                altoValue != null && altoValue > 0 &&
+                edadValue != null && edadValue > 0
+    }
+
     fun calculateIMC() {
         val pesoValue = state.value.peso.toFloatOrNull() ?: 0f
-        val altoValue = state.value.alto.toFloatOrNull()?.div(100) ?: 0f // Convertir cm a metros
+        val altoValue = state.value.alto.toFloatOrNull()?.div(100) ?: 0f
         val imcResult = if (altoValue > 0) pesoValue / (altoValue * altoValue) else 0f
         state.value = state.value.copy(imcResult = imcResult)
     }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,59 +38,51 @@ fun HomeView() {
     ) {
 
         var showDialog by remember { mutableStateOf(false) } // Controlar la visibilidad del AlertDialog
+        var dialogMessage by remember { mutableStateOf("") }
 
         // Mostrar el AlertDialog al iniciar
         if (showDialog) {
-            AlertDialog(
-                onDismissRequest = { showDialog = false },
+            AlertDialog(onDismissRequest = { showDialog = false },
                 title = { Text("¡CUIDADO!") },
-                text = { Text("No te olvides de llenar todos los campos con los datos solicitados.") },
+                text = { Text(dialogMessage) },
                 confirmButton = {
-                    TextButton(onClick =  { showDialog = false }) {
+                    TextButton(onClick = { showDialog = false }) {
                         Text("Entendido")
                     }
-                }
-            )
+                })
         }
 
         CustomText("Calculadora de IMC")
         SegmentedButtonSingleSelect()
         CustomSpacer()
 
-        val focusManager = LocalFocusManager.current
-
-        CustomOutlinedTextField(
-            label = "Edad (Años)",
+        CustomOutlinedTextField(label = "Edad (Años)",
             value = viewModelD.state.value.edad,
-            onValueChange = {viewModelD.updateEdad(it) },
-            focusManager = focusManager
-        )
+            onValueChange = { viewModelD.updateEdad(it) })
         CustomSpacer()
-        CustomOutlinedTextField(
-            label = "Peso (Kg)",
+        CustomOutlinedTextField(label = "Peso (Kg)",
             value = viewModelD.state.value.peso,
-            onValueChange = {viewModelD.updatePeso(it)},
-            focusManager = focusManager
-        )
+            onValueChange = { viewModelD.updatePeso(it) })
         CustomSpacer()
-        CustomOutlinedTextField(
-            label = "Altura (Cm)",
+        CustomOutlinedTextField(label = "Altura (Cm)",
             value = viewModelD.state.value.alto,
-            onValueChange = {viewModelD.updateAlto(it) },
-            focusManager = focusManager
-        )
+            onValueChange = { viewModelD.updateAlto(it) })
         CustomSpacer()
 
         CustomButton(
-            text = "Calcular",
-            modifier = Modifier
+            text = "Calcular", modifier = Modifier
                 .fillMaxWidth()
                 .padding(
                     horizontal = 10.dp
                 )
         ) {
-            viewModelD.calculateIMC()
-            showDialog = true
+
+            if (viewModelD.validateFields()) {
+                viewModelD.calculateIMC()
+            } else {
+                dialogMessage = "No te olvides de llenar todos los campos con datos válidos."
+                showDialog = true
+            }
 
         }
 
