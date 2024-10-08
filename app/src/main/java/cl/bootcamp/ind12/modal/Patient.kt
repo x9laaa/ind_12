@@ -1,6 +1,6 @@
 package cl.bootcamp.ind12.modal
 
-data class StatePATIENT(
+data class Patient(
     val id: Int,
     val name: String
 )

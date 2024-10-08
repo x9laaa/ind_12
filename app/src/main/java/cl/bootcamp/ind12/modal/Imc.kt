@@ -1,6 +1,6 @@
 package cl.bootcamp.ind12.modal
 
-class StateIMC (
+class Imc (
     val peso: String = "",
     val alto: String = "",
     val edad: String = "",
@@ -11,8 +11,8 @@ class StateIMC (
         alto: String = this.alto,
         edad: String = this.edad,
         imcResult: Float = this.imcResult
-    ):StateIMC{
-        return StateIMC(peso, alto, edad, imcResult)
+    ):Imc{
+        return Imc(peso, alto, edad, imcResult)
     }
 
 }

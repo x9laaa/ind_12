@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import cl.bootcamp.ind12.modal.StatePATIENT
+import cl.bootcamp.ind12.modal.Patient
 import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 
@@ -57,7 +57,7 @@ fun PatientsView(navController: NavController, viewModel: PatientsViewModel = vi
 
             LazyColumn {
                 items(viewModel.patients) { patient ->
-                    PatientCard(patient, navController, viewModel)
+                    PatientCard(patient, navController)
                 }
             }
 
@@ -95,28 +95,6 @@ fun PatientsView(navController: NavController, viewModel: PatientsViewModel = vi
                 .padding(16.dp)
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Agregar Paciente")
-        }
-    }
-}
-
-@Composable
-fun PatientCard(patient: StatePATIENT, navController: NavController, viewModel: PatientsViewModel) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "ID : ${patient.id}")
-            Text(text = "Nombre : ${patient.name}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
-            ) {
-                Button(onClick = { navController.navigate("imc")  }) {
-                    Text("Calcular IMC")
-                }
-            }
         }
     }
 }

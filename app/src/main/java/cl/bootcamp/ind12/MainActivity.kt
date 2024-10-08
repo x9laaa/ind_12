@@ -9,8 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cl.bootcamp.ind12.ui.theme.Ind12Theme
-import cl.bootcamp.ind12.view.HomeView
+import cl.bootcamp.ind12.view.ImcView
 import cl.bootcamp.ind12.view.PatientsView
+import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +19,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Ind12Theme {
+                val patientsViewModel: PatientsViewModel = viewModel()
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "home" ){
-                    composable(route = "home") { PatientsView(navController,viewModel = viewModel())}
-                    composable(route = "imc") {HomeView(navController, viewModel = viewModel())}
+                    composable(route = "home") { PatientsView(navController,viewModel = patientsViewModel)}
+                    composable(route = "imc") {ImcView(navController)}
                 }
             }
         }

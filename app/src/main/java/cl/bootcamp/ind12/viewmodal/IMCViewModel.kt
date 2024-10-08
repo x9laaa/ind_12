@@ -2,11 +2,11 @@ package cl.bootcamp.ind12.viewmodal
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import cl.bootcamp.ind12.modal.StateIMC
+import cl.bootcamp.ind12.modal.Imc
 
 
 class IMCViewModel : ViewModel() {
-    var state = mutableStateOf(StateIMC())
+    var state = mutableStateOf(Imc())
         private set
 
     fun updatePeso(peso: String) {

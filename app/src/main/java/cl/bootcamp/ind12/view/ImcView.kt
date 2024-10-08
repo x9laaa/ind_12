@@ -24,10 +24,9 @@ import cl.bootcamp.ind12.components.CustomSpacer
 import cl.bootcamp.ind12.components.CustomText
 import cl.bootcamp.ind12.components.SegmentedButtonSingleSelect
 import cl.bootcamp.ind12.viewmodal.IMCViewModel
-import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 @Composable
-fun HomeView(navController: NavController, viewModel: PatientsViewModel = viewModel()) {
+fun ImcView(navController: NavController) {
     val viewModelD: IMCViewModel = viewModel()
     Column(
         modifier = Modifier
@@ -40,7 +39,6 @@ fun HomeView(navController: NavController, viewModel: PatientsViewModel = viewMo
         var showDialog by remember { mutableStateOf(false) } // Controlar la visibilidad del AlertDialog
         var dialogMessage by remember { mutableStateOf("") }
 
-        // Mostrar el AlertDialog al iniciar
         if (showDialog) {
             AlertDialog(onDismissRequest = { showDialog = false },
                 title = { Text("¡CUIDADO!") },
