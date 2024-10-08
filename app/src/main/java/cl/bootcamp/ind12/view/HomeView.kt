@@ -24,9 +24,10 @@ import cl.bootcamp.ind12.components.CustomSpacer
 import cl.bootcamp.ind12.components.CustomText
 import cl.bootcamp.ind12.components.SegmentedButtonSingleSelect
 import cl.bootcamp.ind12.viewmodal.IMCViewModel
+import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 @Composable
-fun HomeView(navController: NavController) {
+fun HomeView(navController: NavController, viewModel: PatientsViewModel = viewModel()) {
     val viewModelD: IMCViewModel = viewModel()
     Column(
         modifier = Modifier

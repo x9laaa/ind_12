@@ -57,7 +57,7 @@ fun PatientsView(navController: NavController, viewModel: PatientsViewModel = vi
 
             LazyColumn {
                 items(viewModel.patients) { patient ->
-                    PatientCard(patient, navController)
+                    PatientCard(patient, navController, viewModel)
                 }
             }
 
@@ -100,13 +100,14 @@ fun PatientsView(navController: NavController, viewModel: PatientsViewModel = vi
 }
 
 @Composable
-fun PatientCard(patient: StatePATIENT, navController: NavController) {
+fun PatientCard(patient: StatePATIENT, navController: NavController, viewModel: PatientsViewModel) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "ID : ${patient.id}")
             Text(text = "Nombre : ${patient.name}")
             Spacer(modifier = Modifier.height(8.dp))
             Row(
