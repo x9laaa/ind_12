@@ -1,6 +1,8 @@
 package cl.bootcamp.ind12.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,61 +24,83 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cl.bootcamp.ind12.modal.StatePATIENT
 import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
-
+@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PatientsView(viewModel: PatientsViewModel = viewModel()) {
     var showDialog by remember { mutableStateOf(false) }
     var patientName by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBar(title = { Text("Lista de Pacientes") })
+    // Usar un Box para permitir la alineación del FAB
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Blue,
+                    titleContentColor = Color.White
+                ),
+                title = { Text("Lista de Pacientes") },
+                )
 
-        LazyColumn {
-            items(viewModel.patients) { patient ->
-                PatientCard(patient) // Asegúrate de que "patient" es de tipo StatePATIENT
+            // Lista de pacientes
+            LazyColumn {
+                items(viewModel.patients) { patient ->
+                    PatientCard(patient)
+                }
+            }
+
+            // Diálogo para agregar nuevo paciente
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    title = { Text("Agregar Paciente") },
+                    text = {
+                        TextField(
+                            value = patientName,
+                            onValueChange = { patientName = it },
+                            label = { Text("Nombre del Paciente") }
+                        )
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            if (patientName.isNotBlank()) {
+                                viewModel.addPatient(patientName)
+                                patientName = ""
+                                showDialog = false
+                            }
+                        }) {
+                            Text("Agregar")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showDialog = false }) {
+                            Text("Cancelar")
+                        }
+                    }
+                )
             }
         }
 
-        if (showDialog) {
-            AlertDialog(onDismissRequest = { showDialog = false },
-                title = { Text("Agregar Paciente") },
-                text = {
-                    TextField(value = patientName,
-                        onValueChange = { patientName = it },
-                        label = { Text("Nombre del Paciente") })
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        if (patientName.isNotBlank()) {
-                            viewModel.addPatient(patientName)
-                            patientName = ""
-                            showDialog = false
-                        }
-                    }) {
-                        Text("Agregar")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showDialog = false }) {
-                        Text("Cancelar")
-                    }
-                })
-        }
-
         FloatingActionButton(
-            onClick = { showDialog = true }, modifier = Modifier.padding(16.dp)
+            onClick = { showDialog = true },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Agregar Paciente")
         }
@@ -89,14 +113,11 @@ fun PatientCard(patient: StatePATIENT) {
         .padding(8.dp)
         .fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Muestra el nombre del paciente
             Text(text = "Nombre : ${patient.name}")
             Spacer(modifier = Modifier.height(8.dp))
-
-            // Row para alinear el botón a la derecha
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End // Alinear al final (derecha)
+                horizontalArrangement = Arrangement.End
             ) {
                 Button(onClick = {
                     // Aquí puedes manejar el cálculo de IMC
