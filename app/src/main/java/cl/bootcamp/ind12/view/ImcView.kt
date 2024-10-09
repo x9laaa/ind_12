@@ -24,9 +24,14 @@ import cl.bootcamp.ind12.components.CustomSpacer
 import cl.bootcamp.ind12.components.CustomText
 import cl.bootcamp.ind12.components.SegmentedButtonSingleSelect
 import cl.bootcamp.ind12.viewmodal.IMCViewModel
+import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 @Composable
-fun ImcView(navController: NavController) {
+fun ImcView(
+    navController: NavController,
+    patientId: String?,
+    viewModel: PatientsViewModel = viewModel()
+) {
     val viewModelD: IMCViewModel = viewModel()
     Column(
         modifier = Modifier
@@ -51,6 +56,8 @@ fun ImcView(navController: NavController) {
         }
 
         CustomText("Calculadora de IMC")
+
+        Text(text = "ID del Paciente: $patientId")
         SegmentedButtonSingleSelect()
         CustomSpacer()
 
@@ -77,6 +84,8 @@ fun ImcView(navController: NavController) {
 
             if (viewModelD.validateFields()) {
                 viewModelD.calculateIMC()
+
+
             } else {
                 dialogMessage = "No te olvides de llenar todos los campos con datos válidos."
                 showDialog = true
@@ -97,6 +106,10 @@ fun ImcView(navController: NavController) {
                     horizontal = 10.dp
                 )
         ) {
+            viewModel.updatePatient(
+                patientId, viewModelD.state.value.edad.toIntOrNull(),
+                viewModelD.state.value.imcResult.toString()
+            )
             navController.navigate("home")
         }
     }

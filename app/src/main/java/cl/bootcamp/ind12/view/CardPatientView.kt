@@ -27,11 +27,14 @@ fun PatientCard(patient: Patient, navController: NavController) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "ID : ${patient.id}")
             Text(text = "Nombre : ${patient.name}")
+            Text(text = "Genero : ${patient.genero}")
+            Text(text = "Edad : ${patient.edad}")
+            Text(text = "IMC : ${patient.imc}")
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
             ) {
-                Button(onClick = { navController.navigate("imc")  }) {
+                Button(onClick = { navController.navigate("imc/${patient.id}") }){
                     Text("Calcular IMC")
                 }
             }

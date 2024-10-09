@@ -23,7 +23,10 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "home" ){
                     composable(route = "home") { PatientsView(navController,viewModel = patientsViewModel)}
-                    composable(route = "imc") {ImcView(navController)}
+                    composable("imc/{patientId}") { backStackEntry ->
+                        val patientId = backStackEntry.arguments?.getString("patientId")
+                        ImcView(navController,patientId = patientId,viewModel = patientsViewModel)
+                    }
                 }
             }
         }
