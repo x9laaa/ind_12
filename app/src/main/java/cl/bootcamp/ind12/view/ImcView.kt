@@ -36,7 +36,7 @@ fun ImcView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var showDialog by remember { mutableStateOf(false) } // Controlar la visibilidad del AlertDialog
+        var showDialog by remember { mutableStateOf(false) }
         var dialogMessage by remember { mutableStateOf("") }
 
         if (showDialog) {
