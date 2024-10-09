@@ -10,13 +10,13 @@ class PatientsViewModel : ViewModel(){
 
     fun addPatient(name: String) {
         val newId = _patients.size + 1 // Genera un ID único
-        _patients.add(Patient(id = newId, name = name, edad = null, genero =null, imc = ""))
+        _patients.add(Patient(id = newId, name = name, edad = null, genero =null, imc = "", imcEstado = ""))
     }
 
-    fun updatePatient(patientId: String?, edad: Int?, imc: String) {
+    fun updatePatient(patientId: String?, edad: Int?, imc: String,genero:Int, imcEstado : String ) {
         val id = patientId!!.toInt()
         val patient = _patients[id-1]
-        val updatedPatient = patient.copy(edad = edad, imc = imc)
+        val updatedPatient = patient.copy(edad = edad, imc = imc, genero = genero, imcEstado = imcEstado)
         _patients[id-1] = updatedPatient // Actualizar el paciente en el mapa
 
     }

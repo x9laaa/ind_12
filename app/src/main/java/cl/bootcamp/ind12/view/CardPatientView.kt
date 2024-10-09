@@ -25,11 +25,18 @@ fun PatientCard(patient: Patient, navController: NavController) {
             .fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "ID : ${patient.id}")
+
             Text(text = "Nombre : ${patient.name}")
-            Text(text = "Genero : ${patient.genero}")
-            Text(text = "Edad : ${patient.edad}")
-            Text(text = "IMC : ${patient.imc}")
+
+            if (patient.genero == 0) { Text(text = "Genero : Hombre")
+            } else if (patient.genero == 1) {Text(text = "Genero : Mujer")}
+
+            if (patient.edad != null) Text(text = "Edad : ${patient.edad}")
+
+            if (patient.imc != "")  Text(text = "IMC : ${patient.imc}")
+
+            if (patient.imcEstado != "")  Text(text = patient.imcEstado)
+
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End

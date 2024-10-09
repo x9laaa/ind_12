@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,6 +34,7 @@ fun ImcView(
     viewModel: PatientsViewModel = viewModel()
 ) {
     val viewModelD: IMCViewModel = viewModel()
+    var selectedIndex by remember { mutableIntStateOf(-1) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +60,9 @@ fun ImcView(
         CustomText("Calculadora de IMC")
 
         Text(text = "ID del Paciente: $patientId")
-        SegmentedButtonSingleSelect()
+        SegmentedButtonSingleSelect(
+            selectedIndex = selectedIndex,
+            onSelectedIndexChange = { selectedIndex = it })
         CustomSpacer()
 
         CustomOutlinedTextField(label = "Edad (Años)",
@@ -96,8 +100,11 @@ fun ImcView(
         CustomSpacer()
 
         CustomText(String.format("%.1f", viewModelD.state.value.imcResult))
+        CustomText(viewModelD.state.value.imcEstado)
 
         CustomSpacer()
+
+        Text(text = "Índice seleccionado: $selectedIndex")
 
         CustomButton(
             text = "Guardar", modifier = Modifier
@@ -108,7 +115,10 @@ fun ImcView(
         ) {
             viewModel.updatePatient(
                 patientId, viewModelD.state.value.edad.toIntOrNull(),
-                viewModelD.state.value.imcResult.toString()
+                viewModelD.state.value.imcResult.toString(),
+                selectedIndex,
+                viewModelD.state.value.imcEstado
+
             )
             navController.navigate("home")
         }

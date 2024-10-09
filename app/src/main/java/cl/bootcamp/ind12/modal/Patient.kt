@@ -5,5 +5,6 @@ data class Patient(
     val name: String,
     val edad: Int?,
     val genero: Int?,
-    val imc: String
+    val imc: String,
+    val imcEstado: String
 )
