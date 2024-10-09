@@ -28,8 +28,7 @@ fun PatientCard(patient: Patient, navController: NavController) {
 
             Text(text = "Nombre : ${patient.name}")
 
-            if (patient.genero == 0) { Text(text = "Genero : Hombre")
-            } else if (patient.genero == 1) {Text(text = "Genero : Mujer")}
+            Text(text = "Genero : ${if (patient.genero == 0) "Hombre" else "Mujer"}")
 
             if (patient.edad != null) Text(text = "Edad : ${patient.edad}")
 

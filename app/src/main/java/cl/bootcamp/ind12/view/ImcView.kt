@@ -59,7 +59,6 @@ fun ImcView(
 
         CustomText("Calculadora de IMC")
 
-        Text(text = "ID del Paciente: $patientId")
         SegmentedButtonSingleSelect(
             selectedIndex = selectedIndex,
             onSelectedIndexChange = { selectedIndex = it })
@@ -99,13 +98,10 @@ fun ImcView(
 
         CustomSpacer()
 
-        CustomText(String.format("%.1f", viewModelD.state.value.imcResult))
+        CustomText(viewModelD.state.value.imcResult)
         CustomText(viewModelD.state.value.imcEstado)
 
         CustomSpacer()
-
-        Text(text = "Índice seleccionado: $selectedIndex")
-
         CustomButton(
             text = "Guardar", modifier = Modifier
                 .fillMaxWidth()
@@ -115,7 +111,7 @@ fun ImcView(
         ) {
             viewModel.updatePatient(
                 patientId, viewModelD.state.value.edad.toIntOrNull(),
-                viewModelD.state.value.imcResult.toString(),
+                viewModelD.state.value.imcResult,
                 selectedIndex,
                 viewModelD.state.value.imcEstado
 
