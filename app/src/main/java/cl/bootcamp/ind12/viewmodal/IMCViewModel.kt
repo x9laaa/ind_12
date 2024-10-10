@@ -37,10 +37,10 @@ class IMCViewModel : ViewModel() {
         return when {
             imcValue < 18.5 -> "Bajo peso"
             imcValue in 18.5..24.9 -> "Peso normal"
-            imcValue in 25.0..29.9 -> "Pre-obesidad o Sobrepeso"
-            imcValue in 30.0..34.9 -> "Obesidad clase I"
-            imcValue in 35.0..39.9 -> "Obesidad clase II"
-            imcValue >= 40 -> "Obesidad clase III"
+            imcValue in 25.0..29.9 -> "Sobrepeso"
+            imcValue in 30.0..34.9 -> "Obesidad I"
+            imcValue in 35.0..39.9 -> "Obesidad II"
+            imcValue >= 40 -> "Obesidad III"
             else -> "Valor no válido"
         }
     }

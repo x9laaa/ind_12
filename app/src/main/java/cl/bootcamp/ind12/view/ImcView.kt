@@ -110,11 +110,11 @@ fun ImcView(
                 )
         ) {
             viewModel.updatePatient(
-                patientId, viewModelD.state.value.edad.toIntOrNull(),
+                patientId,
+                viewModelD.state.value.edad.toIntOrNull(),
                 viewModelD.state.value.imcResult,
                 selectedIndex,
                 viewModelD.state.value.imcEstado
-
             )
             navController.navigate("home")
         }
