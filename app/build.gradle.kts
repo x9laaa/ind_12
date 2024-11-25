@@ -68,5 +68,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
     implementation ("androidx.navigation:navigation-compose:2.8.0")
+    implementation("com.google.accompanist:accompanist-pager:0.15.0")
+    implementation("com.airbnb.android:lottie-compose:6.5.1")
 
 }

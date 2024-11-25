@@ -44,13 +44,17 @@ fun PatientCard(patient: Patient, navController: NavController) {
             ) {
                 Column {
                     if (patient.edad != null) {
-                        Text(text = "Edad : ${patient.edad}",fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Edad : ${patient.edad}", fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     if (patient.imc.isNotEmpty()) {
-                        Text(text = "IMC : ${patient.imc}",fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "IMC : ${patient.imc}", fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
 
@@ -60,31 +64,40 @@ fun PatientCard(patient: Patient, navController: NavController) {
                 ) {
 
                     if (patient.genero == 0) {
-                        Text(text = "Hombre",fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Hombre", fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     } else if (patient.genero == 1) {
-                        Text(text = "Mujer",fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Mujer", fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     if (patient.imcEstado.isNotEmpty()) {
-                        Text(text = patient.imcEstado,fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(
+                            text = patient.imcEstado, fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+            if (patient.imc.isEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Botón de Calcular IMC alineado a la derecha
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(onClick = { navController.navigate("imc/${patient.id}") }) {
+                        Text("Calcular IMC")
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
 
-            // Botón de Calcular IMC alineado a la derecha
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Button(onClick = { navController.navigate("imc/${patient.id}") }) {
-                    Text("Calcular IMC")
-                }
-            }
         }
     }
 }

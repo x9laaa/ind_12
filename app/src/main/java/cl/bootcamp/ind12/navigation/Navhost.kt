@@ -7,13 +7,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cl.bootcamp.ind12.view.ImcView
 import cl.bootcamp.ind12.view.PatientsView
+import cl.bootcamp.ind12.view.onBoardingViews.MainOnboarding
 import cl.bootcamp.ind12.viewmodal.PatientsViewModel
 
 @Composable
 fun navView(){
     val patientsViewModel: PatientsViewModel = viewModel()
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "home" ){
+    NavHost(navController = navController, startDestination = "tutorial" ){
+        composable(route = "tutorial") { MainOnboarding(navController) }
         composable(route = "home") { PatientsView(navController,viewModel = patientsViewModel) }
         composable("imc/{patientId}") { backStackEntry ->
             val patientId = backStackEntry.arguments?.getString("patientId")
